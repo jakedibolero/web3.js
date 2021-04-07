@@ -23,10 +23,10 @@
  var _ = require('underscore');
  var core = require('../../web3-core/src/index');
  var Method = require('../../web3-core-method/src/index');
- var Account = require('eth-lib/lib/account');
- var Hash = require('eth-lib/lib/hash');
- var RLP = require('eth-lib/lib/rlp'); // jshint ignore:line
- var Bytes = require('eth-lib/lib/bytes'); // jshint ignore:line
+ var Account = require('../../eth-lib/lib/account');
+ var Hash = require('../../eth-lib/lib/hash');
+ var RLP = require('../../eth-lib/lib/rlp'); // jshint ignore:line
+ var Bytes = require('../../eth-lib/lib/bytes'); // jshint ignore:line
  var cryp = (typeof global === 'undefined') ? require('crypto-browserify') : require('crypto');
  var scrypt = require('scrypt-js');
  var uuid = require('uuid');
