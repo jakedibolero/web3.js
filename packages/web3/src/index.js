@@ -29,13 +29,13 @@
 
 
 var version = require('../package.json').version;
-var core = require('../../web3-core');
-var Eth = require('../../web3-eth');
-var Net = require('../../web3-net');
-var Personal = require('../../web3-eth-personal');
-var Shh = require('../../web3-shh');
-var Bzz = require('../../web3-bzz');
-var utils = require('../../web3-utils');
+var core = require('../../web3-core/src/index');
+var Eth = require('../../web3-eth/src/index');
+var Net = require('../../web3-net/src/index');
+var Personal = require('../../web3-eth-personal/src/index');
+var Shh = require('../../web3-shh/src/index');
+var Bzz = require('../../web3-bzz/src/index');
+var utils = require('../../web3-utils/src/index');
 
 var Web3 = function Web3() {
     var _this = this;
