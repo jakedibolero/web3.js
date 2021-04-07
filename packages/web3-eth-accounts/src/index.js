@@ -21,8 +21,8 @@
  */
  'use strict';
  var _ = require('underscore');
- var core = require('../../web3-core');
- var Method = require('../../web3-core-method');
+ var core = require('../../web3-core/src/index');
+ var Method = require('../../web3-core-method/src/index');
  var Account = require('eth-lib/lib/account');
  var Hash = require('eth-lib/lib/hash');
  var RLP = require('eth-lib/lib/rlp'); // jshint ignore:line
@@ -30,8 +30,8 @@
  var cryp = (typeof global === 'undefined') ? require('crypto-browserify') : require('crypto');
  var scrypt = require('scrypt-js');
  var uuid = require('uuid');
- var utils = require('../../web3-utils');
- var helpers = require('../../web3-core-helpers');
+ var utils = require('../../web3-utils/src/index');
+ var helpers = require('../../web3-core-helpers/src/index');
  const bls_ = require("../../../src/js/bundle");
  var Transaction = require('ethereumjs-tx').Transaction;
  var Common = require('ethereumjs-common').default;

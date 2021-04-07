@@ -24,11 +24,11 @@
 'use strict';
 
 var _ = require('underscore');
-var errors = require('../../web3-core-helpers').errors;
-var formatters = require('../../web3-core-helpers').formatters;
-var utils = require('../../web3-utils');
-var promiEvent = require('../../web3-core-promievent');
-var Subscriptions = require('../../web3-core-subscriptions').subscriptions;
+var errors = require('../../web3-core-helpers/src/index').errors;
+var formatters = require('../../web3-core-helpers/src/index').formatters;
+var utils = require('../../web3-utils/src/index');
+var promiEvent = require('../../web3-core-promievent/src/index');
+var Subscriptions = require('../../web3-core-subscriptions/src/index').subscriptions;
 
 var EthersTransactionUtils = require('@ethersproject/transactions');
 

@@ -22,12 +22,12 @@
 
 "use strict";
 
-var core = require('../../web3-core');
+var core = require('../../web3-core/src/index');
 var Method = require('../../web3-core-method');
-var utils = require('../../web3-utils');
-var Net = require('../../web3-net');
+var utils = require('../../web3-utils/src/index');
+var Net = require('../../web3-net/src/index');
 
-var formatters = require('../../web3-core-helpers').formatters;
+var formatters = require('../../web3-core-helpers/src/index').formatters;
 
 
 var Personal = function Personal() {

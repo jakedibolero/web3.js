@@ -22,9 +22,9 @@
 
 "use strict";
 
-var core = require('../../web3-core');
-var Method = require('../../web3-core-method');
-var utils = require('../../web3-utils');
+var core = require('../../web3-core/src/index');
+var Method = require('../../web3-core-method/src/index');
+var utils = require('../../web3-utils/src/index');
 
 
 var Net = function () {

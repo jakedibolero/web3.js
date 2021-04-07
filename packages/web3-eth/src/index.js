@@ -23,19 +23,19 @@
 "use strict";
 
 var _ = require('underscore');
-var core = require('../../web3-core');
-var helpers = require('../../web3-core-helpers');
-var Subscriptions = require('../../web3-core-subscriptions').subscriptions;
-var Method = require('../../web3-core-method');
-var utils = require('../../web3-utils');
-var Net = require('../../web3-net');
+var core = require('../../web3-core/src/index');
+var helpers = require('../../web3-core-helpers/src/index');
+var Subscriptions = require('../../web3-core-subscriptions/src/index').subscriptions;
+var Method = require('../../web3-core-method/src/index');
+var utils = require('../../web3-utils/src/index');
+var Net = require('../../web3-net/src/index');
 
-var ENS = require('../../web3-eth-ens');
-var Personal = require('../../web3-eth-personal');
-var BaseContract = require('../../web3-eth-contract');
-var Iban = require('../../web3-eth-iban');
-var Accounts = require('../../web3-eth-accounts');
-var abi = require('../../web3-eth-abi');
+var ENS = require('../../web3-eth-ens/src/index');
+var Personal = require('../../web3-eth-personal/src/index);
+var BaseContract = require('../../web3-eth-contract/src/index');
+var Iban = require('../../web3-eth-iban/src/index');
+var Accounts = require('../../web3-eth-accounts/src/index');
+var abi = require('../../web3-eth-abi/src/index');
 
 var getNetworkType = require('./getNetworkType.js');
 var formatter = helpers.formatters;

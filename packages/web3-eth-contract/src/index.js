@@ -32,14 +32,14 @@
 
 
 var _ = require('underscore');
-var core = require('../../web3-core');
-var Method = require('../../web3-core-method');
-var utils = require('../../web3-utils');
-var Subscription = require('../../web3-core-subscriptions').subscription;
-var formatters = require('../../web3-core-helpers').formatters;
-var errors = require('../../web3-core-helpers').errors;
-var promiEvent = require('../../web3-core-promievent');
-var abi = require('../../web3-eth-abi');
+var core = require('../../web3-core/src/index');
+var Method = require('../../web3-core-method/src/index');
+var utils = require('../../web3-utils/src/index');
+var Subscription = require('../../web3-core-subscriptions/src/index').subscription;
+var formatters = require('../../web3-core-helpers/src/index').formatters;
+var errors = require('../../web3-core-helpers/src/index').errors;
+var promiEvent = require('../../web3-core-promievent/src/index');
+var abi = require('../../web3-eth-abi/src/index');
 
 
 /**
