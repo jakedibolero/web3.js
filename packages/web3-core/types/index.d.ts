@@ -274,8 +274,10 @@ export class AccountsBase {
     setProvider(provider: provider): boolean;
 
     create(entropy?: string): Account;
+    createBLS(entropy?: string): Account;
 
     privateKeyToAccount(privateKey: string, ignoreLength?: boolean): Account;
+    privateKeyToAccountBLS(privateKey: string, ignoreLength?: boolean): Account;
 
     signTransaction(
         transactionConfig: TransactionConfig,
