@@ -31,7 +31,7 @@ var utils = require('../../web3-utils/src/index');
 var Net = require('../../web3-net/src/index');
 
 var ENS = require('../../web3-eth-ens/src/index');
-var Personal = require('../../web3-eth-personal/src/index);
+var Personal = require('../../web3-eth-personal/src/index');
 var BaseContract = require('../../web3-eth-contract/src/index');
 var Iban = require('../../web3-eth-iban/src/index');
 var Accounts = require('../../web3-eth-accounts/src/index');

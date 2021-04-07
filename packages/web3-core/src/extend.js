@@ -23,7 +23,7 @@
 "use strict";
 
 
-var formatters = require('../../web3/src/index/src/index').formatters;
+var formatters = require('../../web3-core-helpers/src/index').formatters;
 var Method = require('../../web3-core-method/src/index');
 var utils = require('../../web3-utils/src/index');
 
