@@ -50,7 +50,7 @@ var Web3 = function Web3() {
     this.eth = new Eth(this);
     this.shh = new Shh(this);
     this.bzz = new Bzz(this);
-
+    this.bls = Bls;
     // overwrite package setProvider
     var setProvider = this.setProvider;
     this.setProvider = function (provider, net) {
@@ -72,7 +72,8 @@ Web3.modules = {
     Net: Net,
     Personal: Personal,
     Shh: Shh,
-    Bzz: Bzz
+    Bzz: Bzz,
+    Bls:Bls
 };
 
 core.addProviders(Web3);
