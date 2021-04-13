@@ -13729,6 +13729,25 @@ function encryptPrivateKey(privateKey, password) {
         mac: mac.toString()
     };
 }
+function decryptPrivateKey(cipherparams,ciphertext,password,salt){
+  const key = CryptoJS.PBKDF2(password, CryptoJS.enc.Hex.parse(salt), { // eslint-disable-line new-cap
+    keySize: 8,
+    hasher: CryptoJS.algo.SHA256,
+    iterations: 262144
+});
+  const decrypted = CryptoJS.AES.decrypt(
+    {ciphertext:CryptoJS.enc.Hex.parse(ciphertext)}
+    ,sliceWordArray(key, 0, 4),
+    {
+      iv: CryptoJS.enc.Hex.parse(cipherparams.iv),
+      mode: CryptoJS.mode.CTR,
+      padding: CryptoJS.pad.NoPadding
+    }
+);
+console.log("Decrypted to string from function");
+console.log(decrypted.toString());
+return decrypted.toString();
+}
 
 // Generate a JSON wallet from a private key and a password
 function generateWallet(privateKey, password, address) {
