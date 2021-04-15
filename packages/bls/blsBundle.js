@@ -13609,29 +13609,82 @@ function getAddressFirstByte(pub) {
 
 };
 const getRandomWallet = async () => {
-    let randbytes, X = 0;
-    let pub;
-    randbytes = randomBytes(32);
-    try {
-        await bls_.ensureReady();
-        console.log(bls_);
-        pub = privateToPublic(randbytes);
-        while (!pub.isValid() || ( getAddressFirstByte(pub.s) ^ 0xF1)) {
-            randbytes = keccak('keccak256').update(randbytes).digest();
-            pub = privateToPublic(randbytes);
-            console.log(`Attempt ${X}`); X = X + 1;
-        }
+  let randbytes, X = 0;
+  let pub;
+  randbytes = randomBytes(32);
+  try {
+      await bls_.ensureReady();
+      pub = privateToPublic(randbytes);
+      while (!pub.isValid()) {
+          randbytes = keccak('keccak256').update(randbytes).digest();
+          pub = privateToPublic(randbytes);
+          console.log(`Attempt ${X}`); X = X + 1;
+      }
 
-        return {
-            address: privateToAddress(pub.s),
-            privKey: randbytes.toString('hex')
-        };
+      return {
+          address: privateToAddress(pub.s),
+          privKey: randbytes.toString('hex')
+      };
 
-    } catch(err) {
-        console.log("Error from init" + err);
-    }
-
+  } catch(err) {
+      console.log("Error from init" + err);
+  }
 };
+
+const hashComplete = (pub, hash) => {
+  const hash1 = keccak('keccak256').update(DefaultDataDirName);
+  const hash2 = hash1._clone();
+  const hash3 = hash2.update(Buffer.from(pub.s));
+  const hash4 = hash3._clone();
+
+  return hash4.update(hash).digest();
+
+}
+
+/**
+* 
+* @param {Buffer} secret 
+* @param {String} message 
+* @returns Object{Uint8Array, Hex}
+*/
+const sign = async(secret, message) =>  {
+  try {
+      await bls_.ensureReady();
+      let hashedMessage = keccak('keccak256').update(message).digest();
+      const pub = privateToPublic(secret);
+      hashedMessage = hashComplete(pub, hashedMessage);
+  
+      let signed  = signMessage(hashedMessage, secret);
+      console.log(Buffer.from(signed.s).toString('hex'));
+      return {signedBytes: signed.s, signedHex: Buffer.from(signed.s).toString('hex')};
+
+  } catch(err) {
+      console.log("Error from signing Message" + err);
+  }
+}
+
+/**
+* 
+* @param {Buffer} secret 
+* @param {Uint8Array|Buffer} signedMessage 
+* @param {String} message 
+* @returns Boolean
+*/
+const verify = async(secret, signedMessage, message) =>  {
+  try {
+      await bls_.ensureReady();
+      let hashedMessage = keccak('keccak256').update(message).digest();
+      const pub = privateToPublic(secret);
+      hashedMessage = hashComplete(pub, hashedMessage);
+
+      let verified  = verifyMessage(pub, hashedMessage, signedMessage);
+      console.log(verified);
+      return verified;
+
+  } catch(err) {
+      console.log("Error from verifying Message" + err);
+  }
+}
 
 
 /**
@@ -13744,8 +13797,6 @@ function decryptPrivateKey(cipherparams,ciphertext,password,salt){
       padding: CryptoJS.pad.NoPadding
     }
 );
-console.log("Decrypted to string from function");
-console.log(decrypted.toString());
 return decrypted.toString();
 }
 
@@ -13778,7 +13829,9 @@ module.exports = {
     getVanityWalletRandom,
     save,
     getRandomWallet,
-    privateToPublic
+    privateToPublic,
+    verify,
+    sign
 };
 
 }).call(this,require("buffer").Buffer)
