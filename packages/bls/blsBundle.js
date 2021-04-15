@@ -13831,7 +13831,8 @@ module.exports = {
     getRandomWallet,
     privateToPublic,
     verify,
-    sign
+    sign,
+    decryptPrivateKey
 };
 
 }).call(this,require("buffer").Buffer)
