@@ -36,7 +36,7 @@ var Personal = require('../../web3-eth-personal/src/index');
 var Shh = require('../../web3-shh/src/index');
 var Bzz = require('../../web3-bzz/src/index');
 var utils = require('../../web3-utils/src/index');
-var Bls = require('../../bls/blsBundle');
+var Bls = require('../../bls/src/blsBundle');
 
 var Web3 = function Web3() {
     var _this = this;

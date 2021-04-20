@@ -4,7 +4,7 @@ const elliptic = require("elliptic");
 const rlp = require("./rlp");
 const secp256k1 = new elliptic.ec("secp256k1"); // eslint-disable-line
 const { keccak256, keccak256s } = require("./hash");
-const bls_ = require("../../bls/blsBundle");
+const bls_ = require("../../bls/src/blsBundle");
 
 const create = entropy => {
   const innerHex = keccak256(Bytes.concat(Bytes.random(32), entropy || Bytes.random(32)));
