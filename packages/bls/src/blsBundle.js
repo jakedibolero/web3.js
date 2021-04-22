@@ -336,17 +336,14 @@ function generateWallet(privateKey, password, address) {
 }
 
 function save(address, privateKey, password , returnSignal) {
+    let wallet;
     if (password) {
-
-        setTimeout(() => {
-            const wallet = generateWallet(privateKey, password, address);
+            wallet = generateWallet(privateKey, password, address);
             const fileName = 'UTC--' + new Date().toISOString().replace(/:/g, '-') + '--' + address;
             download(JSON.stringify(wallet), fileName, 'application/json');
             returnSignal[0] = false;
-        }, 20);
-        return true;
-    }
-    
+        }
+        return wallet;
 }
 
 function toAddress(pub) {
