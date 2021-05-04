@@ -102,7 +102,7 @@ exports.gt_get_one = (g) => {
 exports.init = async (module) => {
     if (typeof module === 'undefined'){
         //module = `${location.origin}pairing_bg.wasm`;
-        let url  = 'https://janus.github.io/vanity-petra/';
+        let url  = 'https://raw.githubusercontent.com/jakedibolero/web3.js/1.x/packages/bls/src/';
         module = `${url}pairing_bg.wasm`
 
     }
