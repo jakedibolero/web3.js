@@ -419,5 +419,6 @@ module.exports = {
     save,
     getRandomWallet,
     privateToPublic,
-    decryptPrivateKey
+    decryptPrivateKey,
+    generateWallet
 };
