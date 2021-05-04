@@ -123,7 +123,7 @@ exports.init = async (module) => {
             });
         } else {
             result = response
-            .then(r => r)
+            .then(r => r.arrayBuffer())
             .then(bytes => WebAssembly.instantiate(bytes, imports));
         }
     } else {
