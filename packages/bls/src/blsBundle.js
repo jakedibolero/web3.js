@@ -4,6 +4,7 @@ const randomBytes = require('randombytes');
 const CryptoJS = require('crypto-js')
 let bls_ = require('./bls');
 const v4 = require('uuid').v4;
+const rlp = require('rlp')
 const step = 500;
 
 const  DefaultDataDirName = "petrichor";
@@ -353,32 +354,57 @@ function toAddress(pub) {
 }
 
 const hashComplete = (pub, hash) => {
-    const hash1 = keccak('keccak256').update(DefaultDataDirName);
-    const hash2 = hash1._clone();
-    const hash3 = hash2.update(Buffer.from(pub.s));
-    const hash4 = hash3._clone();
+    const prefixBytes = Buffer.from(DefaultDataDirName);
+    const pubBytes = Buffer.from(pub.s);
+    const arrayBytes = [prefixBytes, pubBytes, hash];
+    const concatedBytes = Buffer.concat(arrayBytes);
 
-    return hash4.update(hash).digest();
+    return keccak('keccak256').update(concatedBytes).digest();;
 
 }
 
+function rlpMessage(arguments){
+    return rlp.encode(arguments).toString('hex')
+}
+
+const signMsg = async (messageRLP, secretBytes) =>  {
+    try {
+        let hashedMessage = keccak('keccak256').update(messageRLP).digest();
+        let pub = privateToPublic(secretBytes);
+        hashedMessage = hashComplete(pub, hashedMessage);
+        let signed  = signMessage(hashedMessage, secretBytes);
+        return {
+            "signed": signed.s,
+            "pubKey": pub,
+            "hashed": hashedMessage
+        };
+    } catch(err) {
+        console.error("Error from signing Message" + err);
+    }
+
+
+}
+
+async function signTx(transaction, secretBytes) {
+    let arguments = [transaction.nonce,transaction.gasPrice,transaction.gas,transaction.to,transaction.value,undefined,[]];
+    let rlped = rlpMessage(arguments);
+    let signed = await signMsg(rlped, secretBytes);
+
+    
+    arguments[arguments.length - 1][0] = '0x' + Buffer.from(signed.signed).toString('hex')
+    arguments[arguments.length - 1][1] = '0x' + Buffer.from(signed.pubKey.s).toString('hex')
+    return rlpMessage(arguments);
+}
+
 /**
- * 
+ *      
  * @param {Buffer} secret 
  * @param {String} message 
  * @returns Object{Uint8Array, Hex}
  */
-const sign = async(secret, message) =>  {
+const sign = async(privateKey, transaction) =>  {
     try {
-        await bls_.ensureReady();
-        let hashedMessage = keccak('keccak256').update(message).digest();
-        const pub = privateToPublic(secret);
-        hashedMessage = hashComplete(pub, hashedMessage);
-    
-        let signed  = signMessage(hashedMessage, secret);
-        console.log(Buffer.from(signed.s).toString('hex'));
-        return {signedBytes: signed.s, signedHex: Buffer.from(signed.s).toString('hex')};
-
+        return await signTx(transaction,Buffer.from(privateKey,"hex"));
     } catch(err) {
         console.log("Error from signing Message" + err);
     }
@@ -420,5 +446,7 @@ module.exports = {
     getRandomWallet,
     privateToPublic,
     decryptPrivateKey,
-    generateWallet
+    generateWallet,
+    download,
+    signTx
 };
