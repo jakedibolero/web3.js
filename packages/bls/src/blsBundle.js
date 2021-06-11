@@ -341,7 +341,7 @@ function save(address, privateKey, password , returnSignal) {
     if (password) {
             wallet = generateWallet(privateKey, password, address);
             const fileName = 'UTC--' + new Date().toISOString().replace(/:/g, '-') + '--' + address;
-            download(JSON.stringify(wallet), fileName, 'application/json');
+            download(JSON.stringify(wallet), fileName, 'application/octet-stream');
             returnSignal[0] = false;
         }
         return wallet;
